@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  bitmaster:
+    image: bitmaster:latest  # Name des importierten Docker-Images
+    container_name: bitvavo_invest
+    ports:
+      - "8050:5000"  # Mappe Port 8080 auf Port 5000 im Container
+    environment:
+      - FLASK_SECRET_KEY=SUPER_GEHEIM_FUER_SESSION
+      - MASTER_PASSWORD=bitmaster
+    networks:
+      - bitmaster_network
+    volumes:
+      - /volume1/docker/bitvavo_invest:/app  # Optional: Falls du persistente Daten möchtest
+    restart: unless-stopped
+
+networks:
+  bitmaster_network:
+    driver: bridge
